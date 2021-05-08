@@ -1,4 +1,4 @@
-# This repository contains the codes to train and impute NRTSI on the Football Player Trajectory datasets for stochastic imputation. 
+# This repository contains the codes to train and impute NRTSI on the Football Player Trajectory dataset for stochastic imputation. 
 This dataset is collected from 2021 Big Data Bowl data (https://www.kaggle.com/c/nfl-big-data-bowl-2021).
 This dataset contains 9,543 time series with 50 regularlysampled time points each. The sampling rate is 10 Hz. Each
 time series contains the 2D trajectories of six offensive players and is therefore 12-dimensional. During training and
