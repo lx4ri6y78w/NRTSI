@@ -6,7 +6,7 @@ Billiard training set: https://www.dropbox.com/s/k8k3h209lpyrw56/billiard_train.
 
 Billiard testing set: https://www.dropbox.com/s/oxfwjls7ajym8h6/billiard_eval.p?dl=0
 
-Note that the Traffic dataset is used in NAOMI (https://papers.nips.cc/paper/2019/file/50c1f44e426560f3f2cdcb3e19e39903-Paper.pdf) and it only contains a training set, a testing set and no validation set. Therefore, to make our results comparable to NAOMI, we use the same training set, the same testing set and no validation set.
+Note that the Billiard dataset is used in NAOMI (https://papers.nips.cc/paper/2019/file/50c1f44e426560f3f2cdcb3e19e39903-Paper.pdf) and it only contains a training set, a testing set and no validation set. Therefore, to make our results comparable to NAOMI, we use the same training set, the same testing set and no validation set.
 
 If you want to train on Traffic and MuJoCo datasets, please use the following link to download the npy files and save them to "./data". 
 
