@@ -27,4 +27,4 @@ If you want to visualize the imputed trajectories, the imputation command is:
 ```
 python impute.py --cfg_file=./params.json --save_fig=1
 ```
-The saved figures can be found at ./log/per_gap_8_layer_12_heads_no_dropout_unnormalize_max_level_4_mse_0.975_miss_att_d_128_model_d_1024/impute
+The saved figures can be found at ./log/xxx/impute
