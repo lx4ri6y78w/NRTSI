@@ -5,7 +5,6 @@ from torch import nn
 import torch.nn.functional as F
 import random
 import os
-import time
 
 import matplotlib
 matplotlib.use('Agg')
@@ -97,7 +96,6 @@ def run_imputation(model, exp_data, num_missing, ckpt_dict, max_level, confidenc
     loss = 0
     avg_loss = 0
     count = 0
-    load_time = 0
     if dataset == 'billiard' or 'nfl':
         total_change_of_step_size = 0
         gt_total_change_of_step_size = 0
@@ -142,14 +140,12 @@ def run_imputation(model, exp_data, num_missing, ckpt_dict, max_level, confidenc
             init_obs_data = obs_data = data[obs_list]
             while len(obs_list_np) < data.shape[0]:
                 next_list_np, gap = get_next_to_impute(data.shape[0], obs_list_np, max_level, gp)
-                if gap > 2 ** 3:
+                if gap > 2 ** 2:
                     next_list_np = [next_list_np[0]]
                 #if confidence and gap ==2**max_level:
                 #    next_list_np = next_list_np[:1]
                 max_gap = gap_to_max_gap(gap)
-                s_time = time.time()
                 model.load_state_dict(ckpt_dict[max_gap])
-                load_time += time.time()-s_time
                 obs_list = torch.from_numpy(np.array(obs_list_np)).long().cuda()
                 obs_list_np += next_list_np
                 
@@ -213,13 +209,13 @@ def run_imputation(model, exp_data, num_missing, ckpt_dict, max_level, confidenc
     path_length /= n_sample*count
 
 
-    return loss, avg_loss, gt_total_change_of_step_size, total_change_of_step_size, gt_path_length, path_length, load_time
+    return loss, avg_loss, gt_total_change_of_step_size, total_change_of_step_size, gt_path_length, path_length
 
 def sample_gauss(pred, gt, n_mix, gap, eps=1e-6):
     pred_mean = pred[:, :, :gt.shape[-1]]
     
     pred_std = F.softplus(pred[:, :, gt.shape[-1]:]) + eps
-    if gap <= 2:
+    if gap <= 2 ** 2:
         pred_std = 1e-5 * pred_std
     normal_distri = torch.distributions.Normal(pred_mean,pred_std)
     return normal_distri.sample()
