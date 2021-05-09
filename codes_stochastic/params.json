@@ -17,7 +17,7 @@
     "layer_norm": 0,
     "resume_from_epoch": -1,
     "use_gap_encoding": 0,
-    "exp_dir": "./log/nfl_retrain/",
+    "exp_dir": "./log/nfl/",
     "pretrained": 0,
     "mercer": 0,
     "adapter": 0,
