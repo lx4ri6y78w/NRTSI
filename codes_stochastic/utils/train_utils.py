@@ -330,8 +330,8 @@ def run_epoch(epoch, total_epoch, train, model, exp_data, clip, max_gap, min_gap
         if teacher_forcing:
             while len(obs_list_np) < data.shape[0]:
                 next_list_np, gap = get_next_to_impute(data.shape[0], obs_list_np, max_level, gp)
-                #if min_gap < gap and gap <= max_gap and gap > 2 ** 3:
-                #    next_list_np = [next_list_np[0]]
+                if min_gap < gap and gap <= max_gap and gap > 2 ** 2:
+                    next_list_np = [next_list_np[0]]
                     
                 obs_list = torch.from_numpy(np.array(obs_list_np)).long().cuda()
                 obs_list_np += next_list_np
