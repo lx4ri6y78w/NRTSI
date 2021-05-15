@@ -12,34 +12,22 @@ test_data = np.zeros((N_test, seq_len, 2))
 for i in range(N_train):
     time_steps = time_range[1] * np.random.rand(seq_len)
     time_steps.sort()
-    data = []
-    t_prev = time_steps[0]
+    time_steps = np.array(time_steps)
     freq = np.random.uniform(low=freq_range[0], high=freq_range[1])
     phi = 0.0
-    for t in time_steps:
-        dt = t - t_prev
-        phi = phi + 2 * np.pi * freq * dt
-        y = amplitude * np.sin(phi)
-        t_prev = t
-        data.append([y, t])
-    data = np.array(data)
-    train_data[i] = data
+    freq = np.random.uniform(low=freq_range[0], high=freq_range[1])
+    y = np.sin(2*np.pi*freq*time_steps + phi)
+    train_data[i] = np.concatenate([y[:,None], time_steps[:,None]], -1)
 
 for i in range(N_test):
     time_steps = time_range[1] * np.random.rand(seq_len)
     time_steps.sort()
-    data = []
-    t_prev = time_steps[0]
+    time_steps = np.array(time_steps)
     freq = np.random.uniform(low=freq_range[0], high=freq_range[1])
     phi = 0.0
-    for t in time_steps:
-        dt = t - t_prev
-        phi = phi + 2 * np.pi * freq * dt
-        y = amplitude * np.sin(phi)
-        t_prev = t
-        data.append([y, t])
-    data = np.array(data)
-    test_data[i] = data
+    freq = np.random.uniform(low=freq_range[0], high=freq_range[1])
+    y = np.sin(2*np.pi*freq*time_steps + phi)
+    test_data[i] = np.concatenate([y[:, None], time_steps[:, None]], -1)
 train_data[:,:,1] = time_multiplier * train_data[:,:,1]
 test_data[:,:,1] = time_multiplier * test_data[:,:,1]
 np.save('./data/irr_sin_train.npy', train_data)
